@@ -7,9 +7,10 @@ export default class Chat extends React.Component {
     state = {
         messages: [],
     };
-    componentWillMount() {
 
+    componentWillMount() {
     }
+
     render() {
         return (
             <GiftedChat
@@ -18,7 +19,7 @@ export default class Chat extends React.Component {
                     Backend.sendMessage(message);
                 }}
                 user={{
-                    _id: Backend.getUid(),
+                    _id:  Backend.getUid(),
                     name: this.props.username,
                 }}
             />
