@@ -1,0 +1,25 @@
+{
+	"folders": [
+		{
+			"path": "mobile"
+		},
+		{
+			"path": "web"
+		}
+	],
+
+	"settings": {
+		"[handlebars]": {
+			"editor.formatOnSave": false
+		},
+		"debug.toolBarLocation": "docked",
+		"editor.formatOnSave": true,
+		"prettier.singleQuote": true,
+		"prettier.tabWidth": 4,
+		"prettier.printWidth": 100,
+		"prettier.useTabs": true
+	},
+	"extensions": {
+		"recommendations": ["kelset.rn-full-pack"]
+	}
+}
