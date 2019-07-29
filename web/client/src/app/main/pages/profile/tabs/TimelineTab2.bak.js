@@ -1,261 +1,311 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from "react";
 import {
-    AppBar,
-    Avatar,
-    Button,
-    Card,
-    CardActions,
-    CardContent,
-    CardHeader,
-    Divider,
-    Icon,
-    IconButton,
-    Input,
-    List,
-    ListItem,
-    ListItemText,
-    Paper,
-    Toolbar,
-    Typography
-} from '@material-ui/core';
-import {FuseAnimateGroup} from '@fuse';
-import axios from 'axios';
-import {Link} from 'react-router-dom';
+  AppBar,
+  ButtonBase,
+  Card,
+  CardContent,
+  Chip,
+  Icon,
+  Paper,
+  Toolbar,
+  Typography
+} from "@material-ui/core";
+import { FuseAnimateGroup, FuseScrollbars } from "@fuse";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import * as Actions from "../store/actions";
 
-function TimelineTab()
-{
-    const [data, setData] = useState(null);
+import { makeStyles } from "@material-ui/styles";
+import { darken, fade } from "@material-ui/core/styles/colorManipulator";
+import clsx from "clsx";
+import Chat from "./Chat";
 
-    useEffect(() => {
-        axios.get('/api/profile/timeline').then(res => {
-            setData(res.data);
-        });
-    }, []);
+const useStyles = makeStyles(theme => ({
+  root: {
+    background:
+      "radial-gradient(" +
+      darken(theme.palette.primary.dark, 0.5) +
+      " 0%, " +
+      theme.palette.primary.dark +
+      " 80%)"
+  },
+  cardButton: {
+    display: "block",
+    textAlign: "initial"
+  },
+  divider: {
+    backgroundColor: theme.palette.getContrastText(theme.palette.primary.dark)
+  },
+  seller: {
+    backgroundColor: theme.palette.primary.dark,
+    color: theme.palette.getContrastText(theme.palette.primary.dark),
+    marginRight: -88,
+    paddingRight: 66,
+    width: 480
+  },
+  ///// ///// ///// ///// ///// ///// ///// CHAT RELATED ///// ///// ///// ///// ///// ///// /////
+  //
+  //
+  //
+  contentWrapper: {
+    display: "flex",
+    flexDirection: "column",
+    flex: "1 1 100%",
+    zIndex: 10,
+    background: `linear-gradient(to bottom, ${fade(
+      theme.palette.background.paper,
+      0.8
+    )} 0,${fade(theme.palette.background.paper, 0.6)} 20%,${fade(
+      theme.palette.background.paper,
+      0.8
+    )})`
+  },
+  content: {
+    display: "flex",
+    flex: "1 1 100%",
+    minHeight: 0
+  }
+  //
+  //
+  //
+  ///// ///// ///// ///// ///// ///// ///// CHAT RELATED ///// ///// ///// ///// ///// ///// /////
+}));
 
-    if ( !data )
-    {
-        return null;
-    }
+function TimelineTab() {
+  const dispatch = useDispatch();
+  const sessionChat = useSelector(({ profilePage }) => profilePage.session);
 
-    return (
-        <div className="md:flex max-w-2xl">
+  const [profileData, setProfileData] = useState(null);
+  ///// ///// ///// ///// ///// ///// ///// CHAT RELATED ///// ///// ///// ///// ///// ///// /////
+  //
+  //
+  //
+  const [selectedSession, setSelectedSession] = useState(null);
+  //
+  //
+  //
+  ///// ///// ///// ///// ///// ///// ///// CHAT RELATED ///// ///// ///// ///// ///// ///// /////
 
-            <div className="flex flex-col flex-1 md:pr-32">
+  const classes = useStyles();
 
-                <FuseAnimateGroup
-                    enter={{
-                        animation: "transition.slideUpBigIn"
-                    }}
-                >
+  useEffect(() => {
+    axios.get("/api/profile/about").then(res => {
+      setProfileData(res.data);
+    });
+  }, []);
+
+  ///// ///// ///// ///// ///// ///// ///// CHAT RELATED ///// ///// ///// ///// ///// ///// /////
+  //
+  //
+  //
+
+  const handleCardClick = e => {
+    e.preventDefault();
+    const clickedSession = e.currentTarget.id;
+    dispatch(Actions.getChat(clickedSession));
+  };
+  //
+  //
+  //
+  ///// ///// ///// ///// ///// ///// ///// CHAT RELATED ///// ///// ///// ///// ///// ///// /////
+
+  if (!profileData) {
+    return null;
+  }
+
+  const { general } = profileData;
+
+  return (
+    // <div className="md:flex max-w-2xl">
+    <div className="flex">
+      {/* <div className="flex flex-col flex-1 md:pr-32"> */}
+      <div className="w-5/12 mr-12">
+        <FuseAnimateGroup
+          enter={{
+            animation: "transition.slideUpBigIn"
+          }}
+        >
+          <FuseScrollbars className="overflow-y-auto flex-1">
+            <ButtonBase
+              className={classes.cardButton}
+              onClick={e => handleCardClick(e)}
+              id="1725a680b3249760ea21de81"
+            >
+              <Card className="mx-auto">
+                <CardContent className="p-22 print:p-0">
+                  <div className="flex flex-row">
+                    {/* <Typography color="textSecondary" className="mb-32">
+                  {invoice.date}
+                </Typography> */}
+                    <Chip variant="outlined" color="secondary" label="PTSD" />
+                  </div>
+                  <div className="flex justify-between">
                     <div>
-                        <Card className="w-full overflow-hidden">
-                            <Input
-                                className="p-16 w-full"
-                                classes={{root: 'text-14'}}
-                                placeholder="Write something.."
-                                multiline
-                                rows="6"
-                                margin="none"
-                                disableUnderline
-                            />
-                            <AppBar className="card-footer flex flex-row border-t-1" position="static" color="default" elevation={0}>
-                                <div className="flex-1 items-center">
-                                    <IconButton aria-label="Add photo">
-                                        <Icon>photo</Icon>
-                                    </IconButton>
-                                    <IconButton aria-label="Mention somebody">
-                                        <Icon>person</Icon>
-                                    </IconButton>
-                                    <IconButton aria-label="Add location">
-                                        <Icon>location_on</Icon>
-                                    </IconButton>
-                                </div>
+                      <table className="mb-16">
+                        <tbody>
+                          <tr>
+                            <td className="pr-16 pb-4">
+                              <Typography
+                                className="font-light"
+                                variant="h6"
+                                color="textSecondary"
+                              >
+                                DATE
+                              </Typography>
+                            </td>
+                            <td className="pb-4">
+                              <Typography className="font-light" variant="h6">
+                                July 19, 2019
+                              </Typography>
+                            </td>
+                          </tr>
 
-                                <div className="p-8">
-                                    <Button variant="contained" color="primary" size="small" aria-label="post">
-                                        POST
-                                    </Button>
-                                </div>
+                          <tr>
+                            <td className="pr-16">
+                              <Typography color="textSecondary">
+                                DURATION
+                              </Typography>
+                            </td>
+                            <td>
+                              <Typography>17 minutes</Typography>
+                            </td>
+                          </tr>
 
-                            </AppBar>
-                        </Card>
-
-                        <Divider className="my-32"/>
+                          {/* <tr>
+                        <td className="pr-16">
+                          <Typography color="textSecondary">
+                            DUE DATE
+                          </Typography>
+                        </td>
+                        <td>
+                          <Typography>{invoice.dueDate}</Typography>
+                        </td>
+                      </tr> */}
+                        </tbody>
+                      </table>
                     </div>
+                    <div
+                      className={clsx(classes.seller, "flex items-center p-16")}
+                    >
+                      <Icon className="text-36" color="inherit">
+                        insert_chart
+                      </Icon>
 
-                    {data.posts.map((post) => (
-                            <Card key={post.id} className="mb-32 overflow-hidden">
-                                <CardHeader
-                                    avatar={
-                                        <Avatar aria-label="Recipe" src={post.user.avatar}/>
-                                    }
-                                    action={
-                                        <IconButton aria-label="more">
-                                            <Icon>more_vert</Icon>
-                                        </IconButton>
-                                    }
-                                    title={(
-                                        <span>
-                                                <Typography className="inline font-medium mr-4" color="primary" paragraph={false}>
-                                                    {post.user.name}
-                                                </Typography>
-                                            {post.type === 'post' && "posted on your timeline"}
-                                            {post.type === 'something' && "shared something with you"}
-                                            {post.type === 'video' && "shared a video with you"}
-                                            {post.type === 'article' && "shared an article with you"}
-                                            </span>
-                                    )}
-                                    subheader={post.time}
-                                />
+                      <div
+                        className={clsx(
+                          classes.divider,
+                          "w-px ml-8 mr-16 h-96 opacity-50"
+                        )}
+                      />
 
-                                <CardContent className="py-0">
-                                    {post.message && (
-                                        <Typography component="p" className="mb-16">
-                                            {post.message}
-                                        </Typography>
-                                    )}
+                      <div>
+                        <Typography color="inherit">Sadness : 60</Typography>
+                        <Typography color="inherit">Happiness : 15</Typography>
+                        <Typography color="inherit">Anxiety : 70</Typography>
+                        <Typography color="inherit">
+                          Chocolate : Needs
+                        </Typography>
+                        <Typography color="inherit">Others : Etc.</Typography>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </ButtonBase>
+          </FuseScrollbars>
+        </FuseAnimateGroup>
+      </div>
 
-                                    {post.media && (
-                                        <img
-                                            src={post.media.preview}
-                                            alt="post"
-                                        />
-                                    )}
-
-                                    {post.article && (
-                                        <div className="border-1">
-                                            <img className="w-full border-b-1" src={post.article.media.preview} alt="article"/>
-                                            <div className="p-16">
-                                                <Typography variant="subtitle1">{post.article.title}</Typography>
-                                                <Typography variant="caption">{post.article.subtitle}</Typography>
-                                                <Typography className="mt-16">{post.article.excerpt}</Typography>
-                                            </div>
-                                        </div>
-                                    )}
-                                </CardContent>
-
-                                <CardActions disableSpacing>
-                                    <Button size="small" aria-label="Add to favorites">
-                                        <Icon className="text-16 mr-8" color="action">favorite</Icon>
-                                        <Typography className="normal-case">Like</Typography>
-                                        <Typography className="normal-case ml-4">({post.like})</Typography>
-                                    </Button>
-                                    <Button aria-label="Share">
-                                        <Icon className="text-16 mr-8" color="action">share</Icon>
-                                        <Typography className="normal-case">Share</Typography>
-                                        <Typography className="normal-case ml-4">({post.share})</Typography>
-                                    </Button>
-                                </CardActions>
-
-                                <AppBar className="card-footer flex flex-column p-16" position="static" color="default" elevation={0}>
-
-                                    {post.comments && post.comments.length > 0 && (
-                                        <div className="">
-                                            <div className="flex items-center">
-                                                <Typography>
-                                                    {post.comments.length} comments
-                                                </Typography>
-                                                <Icon className="text-16 ml-4" color="action">keyboard_arrow_down</Icon>
-                                            </div>
-
-                                            <List>
-                                                {post.comments.map((comment) => (
-                                                    <div key={comment.id}>
-                                                        <ListItem className="px-0">
-                                                            <Avatar alt={comment.user.name} src={comment.user.avatar} className="mr-16"/>
-                                                            <ListItemText
-                                                                primary={(
-                                                                    <div>
-                                                                        <Typography className="inline font-medium" color="initial" paragraph={false}>
-                                                                            {comment.user.name}
-                                                                        </Typography>
-                                                                        <Typography className="inline ml-4" variant="caption">
-                                                                            {comment.time}
-                                                                        </Typography>
-                                                                    </div>
-                                                                )}
-                                                                secondary={comment.message}
-                                                            />
-                                                        </ListItem>
-                                                        <div className="flex items-center ml-56 mb-8">
-                                                            <Link to="#" className="mr-8">Reply</Link>
-                                                            <Icon className="text-14 cursor-pointer">flag</Icon>
-                                                        </div>
-                                                    </div>
-                                                ))}
-                                            </List>
-                                        </div>
-                                    )}
-
-                                    <div className="flex flex-auto">
-                                        <Avatar src="assets/images/avatars/profile.jpg"/>
-                                        <div className="flex-1 pl-8">
-                                            <Paper elevation={0} className="w-full mb-16">
-                                                <Input
-                                                    className="p-8 w-full border-1"
-                                                    classes={{root: 'text-13'}}
-                                                    placeholder="Add a comment.."
-                                                    multiline
-                                                    rows="6"
-                                                    margin="none"
-                                                    disableUnderline
-                                                />
-                                            </Paper>
-                                            <Button className="normal-case" variant="contained" color="primary" size="small">Post Comment</Button>
-                                        </div>
-                                    </div>
-                                </AppBar>
-                            </Card>
-                        )
-                    )}
-                </FuseAnimateGroup>
-
+      <div className="w-5/12 mr-12">
+        <main className={clsx(classes.contentWrapper, "z-10")}>
+          {!sessionChat ? (
+            <div className="flex flex-col flex-1 items-center justify-center p-24">
+              <Paper className="rounded-full p-48">
+                <Icon className="block text-64" color="secondary">
+                  chat
+                </Icon>
+              </Paper>
+              <Typography variant="h6" className="my-24">
+                Chat App
+              </Typography>
+              <Typography
+                className="hidden md:flex px-16 pb-24 mt-24 text-center"
+                color="textSecondary"
+              >
+                Select a contact to start a conversation!..
+              </Typography>
             </div>
+          ) : (
+            <React.Fragment>
+              <div className={classes.content}>
+                <Chat className="flex flex-1 z-10" />
+              </div>
+            </React.Fragment>
+          )}
+        </main>
+      </div>
 
-            <div className="flex flex-col md:w-320">
-                <FuseAnimateGroup
-                    enter={{
-                        animation: "transition.slideUpBigIn"
-                    }}
+      {/* <div className="flex flex-col md:w-320" > */}
+      <div className="w-2/12">
+        <FuseAnimateGroup
+          enter={{
+            animation: "transition.slideUpBigIn"
+          }}
+          style={{ position: "fixed", marginRight: "2em" }}
+        >
+          <Card className="w-full mb-16">
+            <AppBar position="static" elevation={0}>
+              <Toolbar className="pl-16 pr-8">
+                <Typography
+                  variant="subtitle1"
+                  color="inherit"
+                  className="flex-1"
                 >
-                    <Card className="w-full">
-                        <AppBar position="static" elevation={0}>
-                            <Toolbar className="pl-16 pr-8">
-                                <Typography variant="subtitle1" color="inherit" className="flex-1">
-                                    Latest Activity
-                                </Typography>
-                                <Button color="inherit" size="small">See All</Button>
-                            </Toolbar>
-                        </AppBar>
-                        <CardContent className="p-0">
-                            <List>
-                                {data.activities.map((activity) => (
-                                    <ListItem key={activity.id} className="">
-                                        <Avatar alt={activity.user.name} src={activity.user.avatar}/>
-                                        <ListItemText
-                                            className="flex-1"
-                                            primary={(
-                                                <div className="truncate">
-                                                    <Typography className="inline font-medium" color="primary" paragraph={false}>
-                                                        {activity.user.name}
-                                                    </Typography>
+                  John Doe
+                </Typography>
+              </Toolbar>
+            </AppBar>
 
-                                                    <Typography className="inline ml-4" paragraph={false}>
-                                                        {activity.message}
-                                                    </Typography>
-                                                </div>
-                                            )}
-                                            secondary={activity.time}
-                                        />
-                                    </ListItem>
-                                ))}
-                            </List>
-                        </CardContent>
-                    </Card>
-                </FuseAnimateGroup>
-            </div>
-        </div>
-    );
+            <CardContent>
+              <div className="mb-24">
+                <Typography className="font-bold mb-4 text-15">
+                  Gender
+                </Typography>
+                <Typography>{general.gender}</Typography>
+              </div>
+
+              <div className="mb-24">
+                <Typography className="font-bold mb-4 text-15">
+                  Birthday
+                </Typography>
+                <Typography>{general.birthday}</Typography>
+              </div>
+
+              <div className="mb-24">
+                <Typography className="font-bold mb-4 text-15">
+                  Locations
+                </Typography>
+
+                <div className="flex items-center">
+                  <Typography>Houston, TX</Typography>
+                  <Icon className="text-16 ml-4" color="action">
+                    location_on
+                  </Icon>
+                </div>
+              </div>
+
+              <div className="mb-24">
+                <Typography className="font-bold mb-4 text-15">
+                  About John
+                </Typography>
+                <Typography>Sample summary</Typography>
+              </div>
+            </CardContent>
+          </Card>
+        </FuseAnimateGroup>
+      </div>
+    </div>
+  );
 }
 
 export default TimelineTab;

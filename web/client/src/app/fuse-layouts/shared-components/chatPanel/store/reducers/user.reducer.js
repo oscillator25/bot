@@ -1,14 +1,10 @@
 import * as Actions from '../actions';
-import _ from "lodash";
+import _ from '@lodash';
 
-const userReducer = function (state = null, action) {
+const userReducer = function (state = {}, action) {
     switch ( action.type )
     {
         case Actions.GET_USER_DATA:
-        {
-            return {...action.payload};
-        }
-        case Actions.UPDATE_USER_DATA:
         {
             return {...action.payload};
         }
