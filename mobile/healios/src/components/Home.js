@@ -21,10 +21,49 @@ export default class Home extends React.Component {
 
 	render() {
 		return (
-			<View style={{ flex: 1 }}>
-				<Image source={require('../resources/healios.png')} />
-				<Button style={{ marginBottom: 30 }} title="Chat with Casey" color="#9CD7FC" />
-				<Button title="Chat with case worker" color="#53BFB8" />
+			<View style={{ flex: 1, backgroundColor: 'white' }}>
+				<View style={{ flex: 2 }}>
+					<Image
+						style={{
+							alignSelf: 'center',
+							resizeMode: 'contain',
+							width: 300,
+							marginTop: -50
+						}}
+						source={require('../resources/healios.png')}
+					/>
+					<Text
+						style={{
+							marginTop: -50,
+							alignSelf: 'center',
+							fontSize: 24
+						}}
+					>
+						Welcome back, John.
+					</Text>
+				</View>
+				<View style={{ flex: 1, justifyContent: 'space-evenly', margin: 30 }}>
+					<Button
+						title="Chat with Casey"
+						color="#9CD7FC"
+						onPress={() => {
+							Actions.caseyChat({
+								name: this.state.firstName
+							});
+						}}
+					/>
+					<Button
+						title="Chat with case worker"
+						color="#53BFB8"
+						onPress={() => {
+							Actions.humanChat({
+								name: this.state.firstName
+							});
+						}}
+					/>
+
+					{/* <Button title="Prolonged Exposure Module" color="#B7B78B" /> */}
+				</View>
 			</View>
 		);
 	}

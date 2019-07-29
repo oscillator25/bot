@@ -21,7 +21,7 @@ class App extends React.Component {
 					<Scene key="registration" component={Registration} title="Registration" />
 					<Scene key="home" component={Home} title="Home" />
 					<Scene key="caseyChat" component={Chat} title="Casey" />
-					<Scene key="humanChat" component={Chat} title="Case Worker" />
+					<Scene key="humanChat" component={Chat} title="Sarah" />
 				</Scene>
 			</Router>
 		);
