@@ -4,7 +4,7 @@ import Home from './components/Home';
 import Chat from './components/Chat';
 import TimerFix from './utilities/TimerFix';
 
-import { Router, Scene } from 'react-native-router-flux';
+import { Router, Scene, Stack } from 'react-native-router-flux';
 
 // Simple component to render something in place of icon
 const TabIcon = ({ selected, title }) => {
