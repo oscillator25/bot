@@ -67,11 +67,10 @@ function ContactsList({ props }) {
           return {
             className: "cursor-pointer",
             onClick: (e, handleOriginal) => {
+              e.preventDefault();
               if (rowInfo) {
                 // dispatch(Actions.openEditContactDialog(rowInfo.original));
-                console.log(rowInfo);
-                console.log(props);
-                props.history.push("/pages/profile");
+                props.history.push("/pages/profile", { rowInfo });
               }
             }
           };
@@ -83,11 +82,14 @@ function ContactsList({ props }) {
               selectedContactIds.length > 0 && <ContactsMultiSelectMenu />,
             accessor: "avatar",
             Cell: row => (
-              <Avatar
-                className="mr-8"
-                alt={row.original.name}
-                // src={row.value}
-              />
+              // <Avatar
+              //   className="mr-8"
+              //   alt={row.original.name}
+              //   // src={row.value}
+              // />
+              <Icon className="list-item-icon text-16" color="action">
+                360
+              </Icon>
             ),
             className: "justify-center",
             width: 64,

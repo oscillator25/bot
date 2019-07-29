@@ -7,6 +7,9 @@ export const ProfilePageConfig = {
       config: {
         navbar: {
           display: false
+        },
+        footer: {
+          display: false
         }
       }
     }

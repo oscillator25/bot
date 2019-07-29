@@ -1,15 +1,15 @@
 import axios from 'axios';
 
-export const GET_FILES = '[FILE MANAGER APP] GET FILES';
+export const GET_USER_DATA = '[CHAT PANEL] GET USER DATA';
 
-export function getFiles()
+export function getUserData()
 {
-    const request = axios.get('/api/file-manager-app/files');
+    const request = axios.get('/api/chat/user');
 
     return (dispatch) =>
         request.then((response) =>
             dispatch({
-                type   : GET_FILES,
+                type   : GET_USER_DATA,
                 payload: response.data
             })
         );
