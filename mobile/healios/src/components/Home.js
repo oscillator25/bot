@@ -175,7 +175,7 @@ export default class Home extends React.Component {
 						// style={{ justifyContent: 'flex-end' }}
 						color="darkturquoise"
 						onPress={() => {
-							Actions.chat({
+							Actions.caseyChat({
 								name: this.state.name
 							});
 						}}

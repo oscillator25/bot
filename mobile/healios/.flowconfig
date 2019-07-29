@@ -19,6 +19,9 @@
 ; Ignore metro
 .*/node_modules/metro/.*
 
+; Ignore node_modules folder
+.*/node_modules/*
+
 [include]
 
 [libs]
