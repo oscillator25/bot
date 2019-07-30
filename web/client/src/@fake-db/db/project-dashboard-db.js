@@ -855,17 +855,17 @@ const projectDashboardAppDB = {
         'widget9'      : {
             'title'       : 'Spent',
             'ranges'      : {
-                'TW': 'This Week',
+                'TW': 'This Month',
                 'LW': 'Last Week',
                 '2W': '2 Weeks Ago'
             },
             'currentRange': 'TW',
-            'weeklySpent' : {
-                'title': 'WEEKLY SPENT',
+            'PROLONGED EXPOSURE' : {
+                'title': 'PROLONGED EXPOSURE',
                 'count': {
-                    '2W': '2,682.85',
-                    'LW': '1,445.34',
-                    'TW': '3,630.15'
+                    '2W': '10%',
+                    'LW': '14%',
+                    'TW': '16%'
                 },
                 'chart': {
                     '2W'   : {
@@ -930,12 +930,12 @@ const projectDashboardAppDB = {
                     }
                 }
             },
-            'totalSpent'  : {
-                'title': 'TOTAL SPENT',
+            'CBT'  : {
+                'title': 'CBT',
                 'count': {
-                    '2W': '29,682.85',
-                    'LW': '31,128.19',
-                    'TW': '34,758.34'
+                    '2W': '20%',
+                    'LW': '11%',
+                    'TW': '7%'
                 },
                 'chart': {
                     '2W'   : {
@@ -1000,12 +1000,12 @@ const projectDashboardAppDB = {
                     }
                 }
             },
-            'remaining'   : {
-                'title': 'REMAINING',
+            'BEHAVIORAL ACTIVATION'   : {
+                'title': 'BEHAVIORAL ACTIVATION',
                 'count': {
-                    '2W': '94.317,15',
-                    'LW': '92.871,81',
-                    'TW': '89.241,66'
+                    '2W': '3%',
+                    'LW': '11%',
+                    'TW': '4%'
                 },
                 'chart': {
                     '2W'   : {
@@ -1071,8 +1071,8 @@ const projectDashboardAppDB = {
                 }
             },
             'totalBudget' : {
-                'title': 'TOTAL BUDGET',
-                'count': '124.000,00'
+                'title': 'OUTLOOK',
+                'count': 'stable'
             }
         },
         'widget10'     : {
