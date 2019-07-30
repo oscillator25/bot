@@ -91,6 +91,7 @@ export function sendMessage(messageText, contactId, userId) {
   //   };
 
   console.log("sendMessage running");
+  console.log(contactId);
 
   const message = [
     {

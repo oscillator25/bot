@@ -8,7 +8,7 @@ import { Tab, Tabs } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { FusePageSimple, FuseAnimate } from "@fuse";
 import TimelineTab from "./tabs/TimelineTab";
-import AboutTab from "./tabs/AboutTab";
+import ReportsTab from "./tabs/ReportsTab";
 //
 // import ProfileSidebarHeader from "./ProfileSidebarHeader";
 // import ProfileSidebarContent from "./ProfileSidebarContent";
@@ -66,14 +66,14 @@ function ProfilePage(props) {
             classes={{
               root: "h-64"
             }}
-            label="Reports"
+            label="Summary"
           />
         </Tabs>
       }
       content={
         <div className="p-16 sm:p-24">
           {selectedTab === 0 && <TimelineTab props={{ ...props }} />}
-          {selectedTab === 1 && <AboutTab />}
+          {selectedTab === 1 && <ReportsTab />}
         </div>
       }
       //   rightSidebarHeader={<ProfileSidebarHeader />}

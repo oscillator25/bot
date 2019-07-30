@@ -501,28 +501,44 @@ const analyticsDashboardAppDB = {
             datasets: [
                 [
                     {
-                        label      : '1Day',
-                        data       : [72, 65, 70, 78, 85, 82, 88],
+                        label      : 'ANGER',
+                        data       : [88, 82,85,78,70,65, 59 ],
                         fill       : false,
                         borderColor: '#5c84f1'
                     }
                 ],
                 [
                     {
-                        label      : '1Week',
-                        data       : [540, 539, 527, 548, 540, 552, 566],
+                        label      : 'DISGUST',
+                        data       : [40, 39, 27, 48, 40, 34, 28],
                         fill       : false,
                         borderColor: '#5c84f1'
                     }
                 ],
                 [
                     {
-                        label      : '1Month',
-                        data       : [1520, 1529, 1567, 1588, 1590, 1652, 1622],
+                        label      : 'FEAR',
+                        data       : [52, 53, 60, 63, 57, 47, 34],
                         fill       : false,
                         borderColor: '#5c84f1'
                     }
-                ]
+                ],
+                [
+                    {
+                        label      : 'JOY',
+                        data       : [82,85,78,70,65 ,88 ,94  ],
+                        fill       : false,
+                        borderColor: '#5c84f1'
+                    }
+                ],
+                [
+                    {
+                        label      : 'SADNESS',
+                        data       : [80, 73, 60, 70, 63, 57, 44],
+                        fill       : false,
+                        borderColor: '#5c84f1'
+                    }
+                ],
             ],
             labels  : ['1', '2', '3', '4', '5', '6', '7'],
             options : {
@@ -570,7 +586,7 @@ const analyticsDashboardAppDB = {
             today   : '12,540',
             change  : {
                 value     : 321,
-                percentage: 2.05
+                percentage: 14.05
             }
         },
         widget9: {
