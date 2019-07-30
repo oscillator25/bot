@@ -7,7 +7,7 @@ const chatDb = {
     {
       id: "5725a680b3249760ea21de52",
       name: "John Doe",
-      avatar: "assets/images/avatars/avatar_bm_dark.png",
+      avatar: "assets/images/avatars/avatar_jd_dark.png",
       status: "online",
       mood: "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
       unread: "2"
