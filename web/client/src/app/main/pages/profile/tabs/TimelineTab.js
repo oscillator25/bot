@@ -47,13 +47,12 @@ const useStyles = makeStyles(theme => {
       backgroundColor: "#b0bec5",
       color: theme.palette.getContrastText("#b0bec5")
     },
-    checkIn: {},
     activeCard: {
-      margin: "0em 1.5em 1em 0em",
+      margin: "0em 0em 2em 0em",
       backgroundColor: "#fff1eb"
     },
     nonActiveCard: {
-      margin: "0em 1.5em 1em 0em",
+      margin: "0em 0em 2em 0em",
       backgroundColor: "#ffffff"
     },
     ///// ///// ///// ///// ///// ///// ///// CHAT RELATED ///// ///// ///// ///// ///// ///// /////
@@ -190,6 +189,7 @@ function TimelineTab({ props }) {
                 onClick={e => handleCardClick(e)}
                 id={sess.id}
                 key={sess.id}
+                style={{ width: "100%" }}
               >
                 <Card
                   className={
@@ -200,7 +200,12 @@ function TimelineTab({ props }) {
                 >
                   <CardContent className="p-22 print:p-0">
                     <Grid container>
-                      <Grid item xs={4}>
+                      <Grid
+                        item
+                        xs={4}
+                        direction="column"
+                        style={{ padding: "0em 2em 0em 0em" }}
+                      >
                         <div
                           style={{
                             padding: "0.8em 0em 0.8em 0em"
@@ -212,32 +217,7 @@ function TimelineTab({ props }) {
                             label={`${sess.type}`}
                           />
                         </div>
-                      </Grid>
-
-                      <Grid item>
-                        <div className="flex flex-row">
-                          <div
-                            style={{
-                              padding: "1em 1em 0.5em 1em",
-                              height: "0.2em"
-                            }}
-                          >
-                            <Typography
-                              className="font-light"
-                              variant="h6"
-                              color="textSecondary"
-                            >
-                              {sess.date}
-                            </Typography>
-                          </div>
-                        </div>
-                      </Grid>
-
-                      <Grid item>
-                        <div
-                          className="justify-between"
-                          style={{ padding: "0.7em 1.7em 0.7em 0em" }}
-                        >
+                        <div className="justify-between">
                           <Typography color="textSecondary">
                             DURATION
                           </Typography>
@@ -250,7 +230,22 @@ function TimelineTab({ props }) {
                         </div>
                       </Grid>
 
-                      <Grid item>
+                      <Grid item direction="column" alignContent="space-around">
+                        <div className="flex flex-row">
+                          <div
+                            style={{
+                              padding: "1em 1em 1em 0em"
+                            }}
+                          >
+                            <Typography
+                              className="font-light"
+                              variant="h6"
+                              color="textSecondary"
+                            >
+                              {sess.date}
+                            </Typography>
+                          </div>
+                        </div>
                         <div
                           className={clsx(
                             classes[`${sess.label}`],

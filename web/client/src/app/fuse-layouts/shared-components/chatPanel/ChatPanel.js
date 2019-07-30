@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import {
   AppBar,
   Toolbar,
@@ -116,7 +116,7 @@ function ChatPanel(props) {
                       color="inherit"
                       onClick={ev => dispatch(Actions.openChatPanel())}
                     >
-                      <Icon className="text-32">chat</Icon>
+                      <Icon className="text-32">chat_bubble_outline</Icon>
                     </IconButton>
                     {!selectedContactId && (
                       <Typography className="ml-16 text-16" color="inherit">
@@ -127,7 +127,8 @@ function ChatPanel(props) {
                 )}
                 {state && selectedContact && (
                   <React.Fragment>
-                    <Avatar className="ml-4" src={selectedContact.avatar} />
+                    {/* <Avatar className="ml-4" src={selectedContact.avatar} /> */}
+                    <Icon className="text-32">chat</Icon>
                     <Typography className="ml-16 text-16" color="inherit">
                       {selectedContact.name}
                     </Typography>

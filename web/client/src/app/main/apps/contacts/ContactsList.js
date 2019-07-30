@@ -81,16 +81,13 @@ function ContactsList({ props }) {
             Header: () =>
               selectedContactIds.length > 0 && <ContactsMultiSelectMenu />,
             accessor: "avatar",
-            Cell: row => (
-              // <Avatar
-              //   className="mr-8"
-              //   alt={row.original.name}
-              //   // src={row.value}
-              // />
-              <Icon className="list-item-icon text-16" color="action">
-                360
-              </Icon>
-            ),
+            Cell: row => {
+              return (
+                <Icon className="list-item-icon text-16" color="action">
+                  {row.original.icon}
+                </Icon>
+              );
+            },
             className: "justify-center",
             width: 64,
             sortable: false
@@ -110,17 +107,16 @@ function ContactsList({ props }) {
           {
             Header: "Household",
             accessor: "household",
-            filterable: true,
-            className: "font-bold"
+            filterable: true
           },
           {
             Header: "Location",
-            accessor: "location",
+            accessor: "address",
             filterable: true
           },
           {
             Header: "Date Opened",
-            accessor: "dateOpened",
+            accessor: "date",
             filterable: true
           }
           // {
