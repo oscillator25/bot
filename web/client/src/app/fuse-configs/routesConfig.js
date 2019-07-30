@@ -18,7 +18,7 @@ const routes = [
   {
     path: "/",
     exact: true,
-    component: () => <Redirect to="/apps/contacts" />
+    component: () => <Redirect to="/login" />
     // component: () => <Redirect to="/apps/dashboards/analytics" />
   },
   {
