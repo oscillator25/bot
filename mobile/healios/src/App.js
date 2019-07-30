@@ -4,6 +4,7 @@ import Registration from './components/Registration';
 import Chat from './components/Chat';
 import Home from './components/Home';
 import TimerFix from './utilities/TimerFix';
+import PEModule from './components/PEModule';
 
 import { Router, Scene, Stack } from 'react-native-router-flux';
 
@@ -22,11 +23,11 @@ class App extends React.Component {
 					<Scene key="home" component={Home} title="Home" />
 					<Scene key="caseyChat" component={Chat} title="Casey" />
 					<Scene key="humanChat" component={Chat} title="Sarah" />
+					<Scene key="peModule" component={PEModule} title="Prolonged Exposure Module" />
 				</Scene>
 			</Router>
 		);
 	}
 }
-//					<Scene key="tabbar" tabs={true} tabBarStyle={{ backgroundColor: '#FFFFFF' }}>
 
 export default App;

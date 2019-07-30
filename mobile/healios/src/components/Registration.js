@@ -87,7 +87,7 @@ export default class Registration extends React.Component {
 							placeholder="Phone Number"
 							onChangeText={text => {
 								this.setState({
-									phone: text
+									phoneNumber: text
 								});
 							}}
 							value={this.state.phoneNumber}
@@ -116,7 +116,7 @@ export default class Registration extends React.Component {
 									addressLine2: text
 								});
 							}}
-							value={this.state.addressLine1}
+							value={this.state.addressLine2}
 						/>
 					</View>
 					<View style={{ flexDirection: 'row' }}>

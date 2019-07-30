@@ -61,8 +61,19 @@ export default class Home extends React.Component {
 							});
 						}}
 					/>
-
-					{/* <Button title="Prolonged Exposure Module" color="#B7B78B" /> */}
+					{true && (
+						<View hide>
+							<Button
+								title="Prolonged Exposure Module"
+								color="#B7B78B"
+								onPress={() => {
+									Actions.peModule({
+										name: this.state.firstName
+									});
+								}}
+							/>
+						</View>
+					)}
 				</View>
 			</View>
 		);
