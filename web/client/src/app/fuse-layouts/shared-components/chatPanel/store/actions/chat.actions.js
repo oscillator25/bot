@@ -18,20 +18,61 @@ export function getChat(contactId) {
     //   }
     // });
 
-    const request = Backend.loadMessages();
+    // return request.then(response => {
+    //   console.log(response.data.chat);
+    //   dispatch(setselectedContactId(contactId));
 
-    return request.then(response => {
-      dispatch(setselectedContactId(contactId));
+    //   dispatch(closeMobileChatsSidebar());
 
-      dispatch(closeMobileChatsSidebar());
+    //   return dispatch({
+    //     type: GET_CHAT,
+    //     chat: response.data.chat,
+    //     userChatData: response.data.userChatData
+    //   });
+    // });
+    const chat = { dialog: [], id: "random" };
+    const userChatData = {
+      chatId: "random",
+      contactId,
+      lastMessageTime: ""
+    };
 
-      return dispatch({
-        type: GET_CHAT,
-        id: response.data._id,
-        time: response.data.createdAt,
-        chat: response.data.text,
-        userChatData: response.data.user
-      });
+    return Backend.loadMessages(message => {
+      if (message) {
+        const messageContainer = [];
+        for (const [key, value] of Object.entries(message)) {
+          messageContainer.push(value);
+        }
+
+        messageContainer.forEach(message => {
+          chat.dialog.push({
+            message: message.text,
+            time: message.createdAt,
+            who: message.user._id
+          });
+        });
+
+        //   userChatData.contactId =
+        //     messageContainer[messageContainer.length - 1].user._id;
+        userChatData.lastMessageTime =
+          messageContainer[messageContainer.length - 1].createdAt;
+
+        dispatch(setselectedContactId(contactId));
+
+        dispatch(closeMobileChatsSidebar());
+
+        return dispatch({
+          type: GET_CHAT,
+          chat,
+          userChatData
+        });
+      } else {
+        return dispatch({
+          type: GET_CHAT,
+          chat: null,
+          userChatData: null
+        });
+      }
     });
   };
 }
@@ -42,24 +83,45 @@ export function removeChat() {
   };
 }
 
-export function sendMessage(messageText, chatId, userId) {
-  const message = {
-    who: userId,
-    message: messageText,
-    time: new Date()
-  };
+export function sendMessage(messageText, contactId, userId) {
+  //   const message = {
+  //     who: userId,
+  //     message: messageText,
+  //     time: new Date()
+  //   };
 
-  const request = axios.post("/api/chat/send-message", {
-    chatId,
-    message
-  });
+  console.log("sendMessage running");
 
-  return dispatch =>
-    request.then(response => {
-      return dispatch({
-        type: SEND_MESSAGE,
-        message: response.data.message,
-        userChatData: response.data.userChatData
-      });
+  const message = [
+    {
+      text: messageText,
+      user: {
+        _id: userId,
+        name: "Charlie Wynn"
+      }
+    }
+  ];
+
+  //   const request = axios.post("/api/chat/send-message", {
+  //     chatId,
+  //     message
+  //   });
+
+  return dispatch => {
+    Backend.sendMessage(message);
+    const time = new Date();
+    return dispatch({
+      type: SEND_MESSAGE,
+      message: {
+        message: messageText,
+        time,
+        who: userId
+      },
+      userChatData: {
+        chatId: "random",
+        contactId: contactId,
+        lastMessageTime: time
+      }
     });
+  };
 }

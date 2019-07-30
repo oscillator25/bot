@@ -1,9 +1,17 @@
 import * as firebase from "firebase";
-// import { FirebaseConfig } from "./keys";
+import { FirebaseConfig } from "./keys";
 
 // firebase.initializeApp(FirebaseConfig);
 
-// let messagesRef = null;
+// //
+// //
+// //
+// export const messagesRef = firebase.database().ref("messages");
+// //
+// //
+// //
+
+// // let messagesRef = null;
 
 // export const loadMessages = callback => {
 //   messagesRef = firebase.database().ref("messages");
@@ -45,7 +53,6 @@ class Backend {
   messagesRef = null;
   // initialize Firebase Backend
   constructor() {
-    console.ignoredYellowBox = ["Setting a timer"];
     firebase.initializeApp({
       apiKey: "AIzaSyAZVPUbyoMW6Uy2TfVA408CgZxsQjH5cxk",
       authDomain: "helios-6e337.firebaseapp.com",
@@ -60,10 +67,11 @@ class Backend {
           .auth()
           .signInAnonymously()
           .catch(error => {
-            alert(error.message);
+            console.log(error.message);
           });
       }
     });
+    this.messagesRef = firebase.database().ref("messages");
   }
   setUid(value) {
     this.uid = value;
@@ -73,21 +81,24 @@ class Backend {
   }
   // retrieve the messages from the Backend
   loadMessages(callback) {
-    this.messagesRef = firebase.database().ref("messages");
+    // this.messagesRef = firebase.database().ref("messages");
     this.messagesRef.off();
     const onReceive = data => {
+      //   const message = data.val();
+      //   callback({
+      //     _id: data.key,
+      //     text: message.text,
+      //     createdAt: new Date(message.createdAt),
+      //     user: {
+      //       _id: message.user._id,
+      //       name: message.user.name
+      //     }
+      //   });
       const message = data.val();
-      callback({
-        _id: data.key,
-        text: message.text,
-        createdAt: new Date(message.createdAt),
-        user: {
-          _id: message.user._id,
-          name: message.user.name
-        }
-      });
+      callback(message);
     };
-    this.messagesRef.limitToLast(20).on("child_added", onReceive);
+    // this.messagesRef.limitToLast(20).on("child_added", onReceive);
+    this.messagesRef.on("value", onReceive);
   }
   // send the message to the Backend
   sendMessage(message) {
