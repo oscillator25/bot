@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-  AppBar,
   ButtonBase,
   Card,
   CardContent,
@@ -19,7 +18,6 @@ import * as Actions from "../store/actions";
 
 import { makeStyles } from "@material-ui/styles";
 import { darken, fade } from "@material-ui/core/styles/colorManipulator";
-import clsx from "clsx";
 import Chat from "./Chat";
 
 const useStyles = makeStyles(theme => {
@@ -48,13 +46,68 @@ const useStyles = makeStyles(theme => {
       color: theme.palette.getContrastText("#b0bec5")
     },
     activeCard: {
-      margin: "0em 0em 2em 0em",
+      margin: "0em 0em 1.5em 0em",
       backgroundColor: "#fff1eb"
     },
     nonActiveCard: {
-      margin: "0em 0em 2em 0em",
+      margin: "0em 0em 1.5em 0em",
       backgroundColor: "#ffffff"
     },
+    ///// ///// ///// ///// ///// ///// ///// TAB GRID RELATED ///// ///// ///// ///// ///// ///// /////
+    //
+    //
+    //
+    mainContainer: {
+      display: "grid",
+      width: "minmax(100vw, 100vw)",
+      gridTemplateColumns: "23.8em 3fr 0.7fr",
+      gridColumnGap: "0.5em"
+    },
+    cardsContainer: {
+      gridColumn: "1",
+      height: "75vh",
+      overflowY: "auto"
+    },
+    sessionCard: {
+      display: "grid",
+      gridTemplate: "auto auto auto / max-content 1fr",
+      gridGap: "0.5em",
+      placeItems: "center start"
+    },
+    chatLogContainer: {
+      gridColumn: "2",
+      height: "75vh",
+      boxShadow: "1px 3px 5px #888888"
+    },
+    patientProfileContainer: {
+      gridColumn: "3",
+      height: "75vh",
+      display: "grid",
+      gridTemplateRows: "64px 1fr",
+      gridRowGap: "0.5em"
+    },
+    patientNameBar: {
+      gridRow: "1 / 2",
+      display: "flex",
+      justifyContent: "space-between",
+      padding: "0em 1.3em 0em 1.3em",
+      boxShadow: "1px 3px 5px #888888",
+      backgroundColor: "#fff1eb",
+      borderColor: "#888888",
+      borderWidth: "thin",
+      borderRadius: "0.3em"
+    },
+    patientInfoCard: {
+      gridRow: "2",
+      boxShadow: "1px 3px 5px #888888",
+      height: "100%",
+      borderColor: "#888888",
+      borderWidth: "thin"
+    },
+    //
+    //
+    //
+    ///// ///// ///// ///// ///// ///// ///// TAB GRID RELATED ///// ///// ///// ///// ///// ///// /////
     ///// ///// ///// ///// ///// ///// ///// CHAT RELATED ///// ///// ///// ///// ///// ///// /////
     //
     //
@@ -167,148 +220,136 @@ function TimelineTab({ props }) {
   const { general } = profileData;
 
   return (
-    <Grid container>
-      <Grid
-        item
-        sm={3}
-        style={{
-          height: "75vh",
-          overflowY: "auto"
-          // boxShadow: "5px 10px 18px #888888"
-        }}
-      >
-        <Scrollbars>
-          <FuseAnimateGroup
-            enter={{
-              animation: "transition.slideUpBigIn"
-            }}
-          >
-            {sessions.map(sess => (
-              <ButtonBase
-                className={classes.cardButton}
-                onClick={e => handleCardClick(e)}
-                id={sess.id}
-                key={sess.id}
-                style={{ width: "100%" }}
+    <div className={classes.mainContainer}>
+      <Scrollbars className={classes.cardsContainer}>
+        <FuseAnimateGroup
+          enter={{
+            animation: "transition.slideUpBigIn"
+          }}
+        >
+          {sessions.map(sess => (
+            <ButtonBase
+              className={classes.cardButton}
+              onClick={e => handleCardClick(e)}
+              id={sess.id}
+              key={sess.id}
+            >
+              <Card
+                className={
+                  sess.id === activeCard
+                    ? classes.activeCard
+                    : classes.nonActiveCard
+                }
               >
-                <Card
-                  className={
-                    sess.id === activeCard
-                      ? classes.activeCard
-                      : classes.nonActiveCard
-                  }
+                <CardContent
+                  className={classes.sessionCard}
+                  style={{ padding: "1.25em" }}
                 >
-                  <CardContent className="p-22 print:p-0">
-                    <Grid container>
-                      <Grid
-                        item
-                        xs={4}
-                        direction="column"
-                        style={{ padding: "0em 2em 0em 0em" }}
-                      >
-                        <div
-                          style={{
-                            padding: "0.8em 0em 0.8em 0em"
-                          }}
-                        >
-                          <Chip
-                            variant="outlined"
-                            color={getSessionLabelColor(sess.type)}
-                            label={`${sess.type}`}
-                          />
-                        </div>
-                        <div className="justify-between">
-                          <Typography color="textSecondary">
-                            DURATION
-                          </Typography>
-                          <Typography>{sess.duration}</Typography>
-                          <br />
-                          <Typography color="textSecondary">
-                            CHAR COUNT
-                          </Typography>
-                          <Typography>{sess.text_characters}</Typography>
-                        </div>
-                      </Grid>
+                  <div
+                    style={{
+                      gridArea: "1 / 1 / 2 / 2"
+                    }}
+                  >
+                    <Chip
+                      variant="outlined"
+                      color={getSessionLabelColor(sess.type)}
+                      label={`${sess.type}`}
+                    />
+                  </div>
+                  <div
+                    style={{
+                      gridArea: "2 / 1 / 3 / 2",
+                      alignSelf: "start"
+                    }}
+                  >
+                    <Typography color="textSecondary">DURATION</Typography>
+                    <Typography>{sess.duration}</Typography>
+                  </div>
 
-                      <Grid item direction="column" alignContent="space-around">
-                        <div className="flex flex-row">
-                          <div
-                            style={{
-                              padding: "1em 1em 1em 0em"
-                            }}
-                          >
-                            <Typography
-                              className="font-light"
-                              variant="h6"
-                              color="textSecondary"
-                            >
-                              {sess.date}
-                            </Typography>
-                          </div>
-                        </div>
-                        <div
-                          className={clsx(
-                            classes[`${sess.label}`],
-                            "flex items-center p-16"
-                          )}
-                        >
-                          <Icon className="text-36" color="inherit">
-                            {sess.label === "positive"
-                              ? "trending_up"
-                              : "trending_down"}
-                          </Icon>
-                          <div
-                            className={clsx(
-                              classes.divider,
-                              "w-px ml-8 mr-16 h-96 opacity-50"
-                            )}
-                          />
-                          <div>
-                            <Typography color="inherit">
-                              Anger : {sess.scores.anger}
-                            </Typography>
-                            <Typography color="inherit">
-                              Disgust : {sess.scores.disgust}
-                            </Typography>
-                            <Typography color="inherit">
-                              Fear : {sess.scores.fear}
-                            </Typography>
-                            <Typography color="inherit">
-                              Joy : {sess.scores.joy}
-                            </Typography>
-                            <Typography color="inherit">
-                              Sadness : {sess.scores.sadness}
-                            </Typography>
-                          </div>
-                        </div>
-                      </Grid>
-                    </Grid>
-                  </CardContent>
-                </Card>
-              </ButtonBase>
-            ))}
-          </FuseAnimateGroup>
-        </Scrollbars>
-      </Grid>
-      <Grid
-        item
-        sm={6}
-        style={{
-          height: "75vh",
-          overflowY: "auto",
-          margin: 5,
-          boxShadow: "1px 3px 5px #888888"
-        }}
-      >
+                  <div
+                    style={{
+                      gridArea: "3 / 1 / 4 / 2"
+                    }}
+                  >
+                    <Typography color="textSecondary">CHAR COUNT</Typography>
+                    <Typography>{sess.text_characters}</Typography>
+                  </div>
+
+                  <div
+                    style={{
+                      gridArea: "1 / 2 / 2 / 3"
+                    }}
+                  >
+                    <Typography
+                      className="font-light"
+                      variant="h6"
+                      color="textSecondary"
+                    >
+                      {sess.date}
+                    </Typography>
+                  </div>
+
+                  <div
+                    className={classes[`${sess.label}`]}
+                    style={{
+                      gridArea: "2 / 2 / 4 / 3",
+                      display: "grid",
+                      gridTemplateColumns: "auto max-content",
+                      padding: "1em",
+                      alignItems: "center"
+                    }}
+                  >
+                    <div
+                      style={{
+                        gridColumn: "1",
+                        paddingRight: "0.5em"
+                      }}
+                    >
+                      <Icon className="text-36" color="inherit">
+                        {sess.label === "positive"
+                          ? "trending_up"
+                          : "trending_down"}
+                      </Icon>
+                    </div>
+                    <div
+                      style={{
+                        borderLeft: "thin solid rgb(80,80,80)",
+                        paddingLeft: "0.5em",
+                        gridColumn: "2"
+                      }}
+                    >
+                      <Typography color="inherit">
+                        Anger : {sess.scores.anger}
+                      </Typography>
+                      <Typography color="inherit">
+                        Disgust : {sess.scores.disgust}
+                      </Typography>
+                      <Typography color="inherit">
+                        Fear : {sess.scores.fear}
+                      </Typography>
+                      <Typography color="inherit">
+                        Joy : {sess.scores.joy}
+                      </Typography>
+                      <Typography color="inherit">
+                        Sadness : {sess.scores.sadness}
+                      </Typography>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </ButtonBase>
+          ))}
+        </FuseAnimateGroup>
+      </Scrollbars>
+      <div className={classes.chatLogContainer}>
         <Card
           style={{
-            height: "75vh",
+            height: "100%",
             borderColor: "#888888",
             borderWidth: "thin",
             overflowY: "auto"
           }}
         >
-          {/* <main className={clsx(classes.contentWrapper, "z-10")}> */}
           {!chatLog ? (
             <div className="flex flex-col flex-1 items-center justify-center pt-64">
               <Paper className="rounded-full p-48">
@@ -334,81 +375,69 @@ function TimelineTab({ props }) {
             </Scrollbars>
           )}
         </Card>
-      </Grid>
-      <Grid
-        item
-        sm={2}
-        style={{
-          height: "75vh",
-          width: "100vh",
-          overflowY: "auto",
-          margin: 5,
-          boxShadow: "1px 3px 5px #888888"
-        }}
-      >
-        <Card
-          style={{
-            height: "100%",
-            width: "100%",
-            borderColor: "#888888",
-            borderWidth: "thin"
-          }}
-        >
-          <AppBar position="static" elevation={0}>
-            <Toolbar className="pl-16 pr-8">
-              <Typography
-                variant="subtitle1"
-                color="inherit"
-                className="flex-1"
-              >
-                John Doe
-              </Typography>
-            </Toolbar>
-          </AppBar>
-
-          <CardContent>
-            <div className="mb-24">
-              <Typography className="font-bold mb-4 text-15">Gender</Typography>
-              <Typography>{general.gender}</Typography>
-            </div>
-
-            <div className="mb-24">
-              <Typography className="font-bold mb-4 text-15">
-                Birthday
-              </Typography>
-              <Typography>{general.birthday}</Typography>
-            </div>
-
-            <div className="mb-24">
-              <Typography className="font-bold mb-4 text-15">
-                Locations
-              </Typography>
-
-              <div className="flex items-center">
-                <Typography>Houston, TX</Typography>
-                <Icon className="text-16 ml-4" color="action">
-                  location_on
-                </Icon>
+      </div>
+      <div className={classes.patientProfileContainer}>
+        <Toolbar className={classes.patientNameBar}>
+          <Typography variant="h6" color="inherit">
+            John Doe
+          </Typography>
+          <Chip
+            onClick={() => console.log("chat chip clicked")}
+            size="medium"
+            label="chat"
+            component="a"
+            color="secondary"
+            clickable
+          />
+        </Toolbar>
+        <Card className={classes.patientInfoCard}>
+          <Scrollbars>
+            <CardContent>
+              <div className="mb-24">
+                <Typography className="font-bold mb-4 text-15">
+                  Gender
+                </Typography>
+                <Typography>{general.gender}</Typography>
               </div>
-            </div>
 
-            <div className="mb-24">
-              <Typography className="font-bold mb-4 text-15">
-                About John
-              </Typography>
-              <Typography>
-                John was an average neurotypical individual prior to the
-                devastating effects of Hurricane Harvey and the aftermath
-                flooding. He made his living managing a popular restaurant in
-                downtown Houston, and is a first-time homeowner of a small house
-                which is currently inhabitable due to subpar living conditions.
-              </Typography>
-            </div>
-          </CardContent>
+              <div className="mb-24">
+                <Typography className="font-bold mb-4 text-15">
+                  Birthday
+                </Typography>
+                <Typography>{general.birthday}</Typography>
+              </div>
+
+              <div className="mb-24">
+                <Typography className="font-bold mb-4 text-15">
+                  Locations
+                </Typography>
+
+                <div className="flex items-center">
+                  <Typography>Houston, TX</Typography>
+                  <Icon className="text-16 ml-4" color="action">
+                    location_on
+                  </Icon>
+                </div>
+              </div>
+
+              <div className="mb-24">
+                <Typography className="font-bold mb-4 text-15">
+                  About John
+                </Typography>
+                <Typography>
+                  John was an average neurotypical individual prior to the
+                  devastating effects of Hurricane Harvey and the aftermath
+                  flooding. He made his living managing a popular restaurant in
+                  downtown Houston, and is a first-time homeowner of a small
+                  house which is currently inhabitable due to subpar living
+                  conditions.
+                </Typography>
+              </div>
+            </CardContent>
+          </Scrollbars>
         </Card>
-        {/* </FuseAnimateGroup> */}
-      </Grid>
-    </Grid>
+      </div>
+    </div>
   );
 }
 
