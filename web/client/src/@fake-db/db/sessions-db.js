@@ -1,3 +1,4 @@
+import React from "react";
 import mock from "./../mock";
 import { FuseUtils } from "@fuse";
 import _ from "@lodash";
@@ -50,7 +51,7 @@ const sessionsDB = {
 
         {
           who: "5725a680b3249760ea21de52",
-          message: "Yes.",
+          message: "Yes",
           time: "2017-03-22T09:00:27.299Z"
         },
         {

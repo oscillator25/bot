@@ -1,6 +1,8 @@
 import React from "react";
+
+import clsx from "clsx";
+
 import {
-  Avatar,
   Divider,
   Icon,
   List,
@@ -10,6 +12,12 @@ import {
   Typography
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
+
+import red from "@material-ui/core/colors/red";
+import blue from "@material-ui/core/colors/blue";
+import green from "@material-ui/core/colors/green";
+import blueGrey from "@material-ui/core/colors/blueGrey";
+
 import { FuseAnimate, NavLinkAdapter } from "@fuse";
 import { useSelector } from "react-redux";
 
@@ -33,6 +41,21 @@ const useStyles = makeStyles(theme => ({
     "& .list-item-icon": {
       marginRight: 16
     }
+  },
+  all: {
+    color: "#000000"
+  },
+  trending_up: {
+    color: green["A400"]
+  },
+  report_problem: {
+    color: red["A400"]
+  },
+  fiber_new: {
+    color: blue["500"]
+  },
+  trending_flat: {
+    color: blueGrey["300"]
   }
 }));
 
@@ -47,7 +70,7 @@ function ContactsSidebarContent(props) {
         <Paper className="rounded-0 shadow-none lg:rounded-8 lg:shadow-1">
           <div className="p-24 flex items-center">
             {/* <Avatar className="mr-12" alt={user.name} src={user.avatar}/> */}
-            <Icon className="list-item-icon text-36" color="action">
+            <Icon className="list-item-icon text-32" color="action">
               assessment
             </Icon>
             <Typography>Priority</Typography>
@@ -61,7 +84,10 @@ function ContactsSidebarContent(props) {
               activeClassName="active"
               className={classes.listItem}
             >
-              <Icon className="list-item-icon text-16" color="action">
+              <Icon
+                className={clsx("list-item-icon text-28", classes.all)}
+                color="action"
+              >
                 360
               </Icon>
               <ListItemText
@@ -78,7 +104,10 @@ function ContactsSidebarContent(props) {
               activeClassName="active"
               className={classes.listItem}
             >
-              <Icon className="list-item-icon text-16" color="action">
+              <Icon
+                className={clsx("list-item-icon text-28", classes.fiber_new)}
+                color="action"
+              >
                 fiber_new
               </Icon>
               <ListItemText
@@ -95,7 +124,13 @@ function ContactsSidebarContent(props) {
               activeClassName="active"
               className={classes.listItem}
             >
-              <Icon className="list-item-icon text-16" color="action">
+              <Icon
+                className={clsx(
+                  "list-item-icon text-28",
+                  classes.report_problem
+                )}
+                color="action"
+              >
                 report_problem
               </Icon>
               <ListItemText
@@ -112,7 +147,13 @@ function ContactsSidebarContent(props) {
               activeClassName="active"
               className={classes.listItem}
             >
-              <Icon className="list-item-icon text-16" color="action">
+              <Icon
+                className={clsx(
+                  "list-item-icon text-28",
+                  classes.trending_flat
+                )}
+                color="action"
+              >
                 trending_flat
               </Icon>
               <ListItemText
@@ -128,7 +169,10 @@ function ContactsSidebarContent(props) {
               activeClassName="active"
               className={classes.listItem}
             >
-              <Icon className="list-item-icon text-16" color="action">
+              <Icon
+                className={clsx("list-item-icon text-28", classes.trending_up)}
+                color="action"
+              >
                 trending_up
               </Icon>
               <ListItemText
