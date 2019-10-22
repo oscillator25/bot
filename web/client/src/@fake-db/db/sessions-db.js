@@ -1,4 +1,3 @@
-import React from "react";
 import mock from "./../mock";
 import { FuseUtils } from "@fuse";
 import _ from "@lodash";
@@ -14,7 +13,7 @@ const sessionsDB = {
     {
       id: "9473a637m3249760ea21df38",
       date: "Sept. 23, 2017",
-      duration: "24 minutes",
+      duration: "14 minutes",
       type: "CBT",
       scores: {
         sadness: 0.597,
@@ -25,12 +24,37 @@ const sessionsDB = {
       },
       label: "negative",
       text_characters: 549,
-      dialog: []
+      dialog: [
+        {
+          who: "5725a6802d10e277a0f35724",
+          message:
+            "Hi John, let's go through the Prolonged Exposure (PE) exercise that you've discussed with Charlie. Is now still a good time?",
+          time: "2017-03-22T08:45:28.299Z"
+        },
+
+        {
+          who: "5725a680b3249760ea21de52",
+          message: "Yes.",
+          time: "2017-03-22T09:00:27.299Z"
+        },
+        {
+          who: "5725a6802d10e277a0f35724",
+          message:
+            "Great. Sit back with your eyes closed and try to remember the trauma as vividly as possible. You can type your feelings afterwards, or record your narrative using the speech-to-text function.",
+          time: "2017-03-22T08:56:28.299Z"
+        },
+        {
+          who: "5725a680b3249760ea21de52",
+          message:
+            "We heard the news that a hurricane was approaching and that we should be prepared. I am covering the windows of my house even as rain is pouring like crazy outside. The wind is howling so much but I want to finish preparing my house as fast as I can. The ladder feels a bit unstable and wobbly and I start to panic. I frantically grab the window handle and it flings open all of a sudden. Wind and rain slaps me in the face and I fly off the ladder. I land on my back and I can feel myself gasping for breath. Water is pouring down the open window and I choke in the water for a second. I splash around trying to get hold of something and all I can think of is that I’m going to die. I finally grab onto a chair and hoist myself up. I sit down for a while but get up right away to close the window and secure it.",
+          time: "2017-03-22T09:00:28.299Z"
+        }
+      ]
     },
     {
       id: "5779a637m3372760ea21dh93",
       date: "Sept. 22, 2017",
-      duration: "29 minutes",
+      duration: "12 minutes",
       type: "PE",
       scores: {
         sadness: 0.552,
@@ -51,7 +75,7 @@ const sessionsDB = {
 
         {
           who: "5725a680b3249760ea21de52",
-          message: "Yes",
+          message: "Yes.",
           time: "2017-03-22T09:00:27.299Z"
         },
         {
@@ -71,7 +95,7 @@ const sessionsDB = {
     {
       id: "HSi3a637msdkjy2h60ea21d87b",
       date: "Sept. 20, 2017",
-      duration: "41 minutes",
+      duration: "19 minutes",
       type: "Check-in",
       scores: {
         sadness: 0.545,
