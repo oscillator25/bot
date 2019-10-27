@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
-import {
-  Avatar,
-  Checkbox,
-  Icon,
-  IconButton,
-  Typography
-} from "@material-ui/core";
+
+import clsx from "clsx";
+
+import { Icon, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/styles";
+
+import red from "@material-ui/core/colors/red";
+import blue from "@material-ui/core/colors/blue";
+import green from "@material-ui/core/colors/green";
+import blueGrey from "@material-ui/core/colors/blueGrey";
+
 import { FuseUtils, FuseAnimate } from "@fuse";
 import { useDispatch, useSelector } from "react-redux";
 import ReactTable from "react-table";
@@ -16,7 +20,26 @@ import ContactsMultiSelectMenu from "./ContactsMultiSelectMenu";
 import { withRouter } from "react-router-dom";
 //
 
+// Define icon-color rules using custom colors above
+const iconStyles = () => {
+  return {
+    trending_up: {
+      color: green["A400"]
+    },
+    report_problem: {
+      color: red["A400"]
+    },
+    fiber_new: {
+      color: blue["500"]
+    },
+    trending_flat: {
+      color: blueGrey["300"]
+    }
+  };
+};
+
 function ContactsList({ props }) {
+  const classes = makeStyles(iconStyles)();
   const dispatch = useDispatch();
   const contacts = useSelector(
     ({ contactsApp }) => contactsApp.contacts.entities
@@ -82,15 +105,21 @@ function ContactsList({ props }) {
               selectedContactIds.length > 0 && <ContactsMultiSelectMenu />,
             accessor: "avatar",
             Cell: row => {
+              console.log(row.original.icon);
               return (
-                <Icon className="list-item-icon text-16" color="action">
+                // <Icon className="list-item-icon text-16" color={testColor}>
+                <Icon
+                  className={clsx(
+                    "list-item-icon text-28",
+                    classes[row.original.icon]
+                  )}
+                >
                   {row.original.icon}
                 </Icon>
               );
             },
             className: "justify-center",
-            width: 64,
-            sortable: false
+            width: 64
           },
           {
             Header: "First Name",
@@ -119,44 +148,6 @@ function ContactsList({ props }) {
             accessor: "date",
             filterable: true
           }
-          // {
-          //   Header: "Email",
-          //   accessor: "email",
-          //   filterable: true
-          // },
-          // {
-          //   Header: "Phone",
-          //   accessor: "phone",
-          //   filterable: true
-          // },
-          // {
-          //   Header: "",
-          //   width: 128,
-          //   Cell: row => (
-          //     <div className="flex items-center">
-          //       <IconButton
-          //         onClick={ev => {
-          //           ev.stopPropagation();
-          //           dispatch(Actions.toggleStarredContact(row.original.id));
-          //         }}
-          //       >
-          //         {user.starred && user.starred.includes(row.original.id) ? (
-          //           <Icon>star</Icon>
-          //         ) : (
-          //           <Icon>star_border</Icon>
-          //         )}
-          //       </IconButton>
-          //       <IconButton
-          //         onClick={ev => {
-          //           ev.stopPropagation();
-          //           dispatch(Actions.removeContact(row.original.id));
-          //         }}
-          //       >
-          //         <Icon>delete</Icon>
-          //       </IconButton>
-          //     </div>
-          //   )
-          // }
         ]}
         defaultPageSize={10}
         noDataText="No contacts found"

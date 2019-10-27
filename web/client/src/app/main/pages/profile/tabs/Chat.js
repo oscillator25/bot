@@ -18,12 +18,15 @@ const useStyles = makeStyles(theme => ({
   messageRow: {
     "&.contact": {
       "& .bubble": {
-        backgroundColor: theme.palette.primary.main,
-        color: theme.palette.primary.contrastText,
+        backgroundColor: "#fafafa",
+        color: "#000000",
         borderTopLeftRadius: 5,
         borderBottomLeftRadius: 5,
         borderTopRightRadius: 20,
         borderBottomRightRadius: 20,
+        borderStyle: "solid",
+        borderWidth: "thin",
+        borderColor: "#ff4081",
         "& .time": {
           marginLeft: 12
         }
@@ -48,7 +51,7 @@ const useStyles = makeStyles(theme => ({
       },
       "& .bubble": {
         marginLeft: "auto",
-        backgroundColor: theme.palette.grey[300],
+        backgroundColor: theme.palette.grey[100],
         color: theme.palette.getContrastText(theme.palette.grey[300]),
         borderTopLeftRadius: 20,
         borderBottomLeftRadius: 20,
