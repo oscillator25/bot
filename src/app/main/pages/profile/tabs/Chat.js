@@ -1,12 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import {
-  Avatar,
-  Paper,
-  Typography,
-  TextField,
-  IconButton,
-  Icon
-} from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import { FuseScrollbars } from "@fuse";
 import { useDispatch, useSelector } from "react-redux";
 import clsx from "clsx";
@@ -15,6 +8,7 @@ import moment from "moment/moment";
 import { makeStyles } from "@material-ui/styles";
 
 import jsxTest from "./test.js";
+import convo from "./caseyConvo";
 
 const useStyles = makeStyles(theme => ({
   messageRow: {
@@ -171,8 +165,9 @@ function Chat(props) {
               >
                 <div className="bubble flex relative items-center justify-center p-12 max-w-full">
                   <div className="leading-tight whitespace-pre-wrap">
-                    {/* {item.message} */}
-                    {jsxTest[i]["message"]}
+                    {chat.id === "5779a637m3372760ea21dh93"
+                      ? jsxTest[i]["message"]
+                      : convo[i]["message"]}
                   </div>
                   <Typography
                     className="time absolute hidden w-full text-11 mt-8 -mb-24 left-0 bottom-0 whitespace-no-wrap"

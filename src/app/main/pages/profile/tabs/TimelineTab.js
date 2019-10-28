@@ -204,7 +204,6 @@ function TimelineTab({ props }) {
         }
       })
       .then(res => {
-        console.log(res);
         setChatLog(res.data.session);
       });
   };
